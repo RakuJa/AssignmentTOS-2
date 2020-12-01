@@ -15,6 +15,10 @@ public class TakeAwayBillImpl implements TakeAwayBill{
 
     public double getOrderPrice(List<MenuItem> itemsOrdered, User user) 
             throws RestaurantBillException {
+        if (itemsOrdered.size()>30) {
+            throw new RestaurantBillException(""
+                    + "Superati 30 elementi! Ordine troppo grande");
+        }
         // TODO Auto-generated method stub
         double sum = 0;
         double min = Double.MAX_VALUE;
