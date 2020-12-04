@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class TakeAwayBillTest {
     @Before
     public void BeforeClass() {
         test = new TakeAwayBillImpl();
+        TakeAwayBillImpl.lotteryCounter = 10;
     }
     
     @Test
@@ -33,7 +35,7 @@ public class TakeAwayBillTest {
         
         
         try {
-            assertEquals(33,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(33,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -45,7 +47,7 @@ public class TakeAwayBillTest {
     public void testVuoto() {
         List<MenuItem> emptyList = new ArrayList<MenuItem>();
         try {
-            assertEquals(0,test.getOrderPrice(emptyList, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(0,test.getOrderPrice(emptyList, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testVuoto");
             e.printStackTrace();
@@ -63,7 +65,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Gelati,"Fesa",3));
         
         try {
-            assertEquals(17.8,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(17.8,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -82,7 +84,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Budini,"Fesa",3));
         
         try {
-            assertEquals(19.3,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(19.3,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -102,7 +104,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Budini,"Fest",1));
         
         try {
-            assertEquals(18.8,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(18.8,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -123,7 +125,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Budini,"Fest",1));
         
         try {
-            assertEquals(85.635,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(85.635,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -144,7 +146,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Bevande,"Fest",1));
         
         try {
-            assertEquals(97.3,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(97.3,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -165,7 +167,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Budini,"Fest",1));
         
         try {
-            assertEquals(97.3,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(97.3,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -185,7 +187,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Budini,"Fest",1));
         
         try {
-            assertEquals(87.57,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(87.57,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -230,7 +232,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Budini,"St3423efa",38));
         lista.add(new MenuItem(ItemType.Budini,"St3423efa",38));
 
-        test.getOrderPrice(lista,new User("forse","si","no",LocalDate.now())); 
+        test.getOrderPrice(lista,new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)); 
         
     }
     
@@ -245,7 +247,7 @@ public class TakeAwayBillTest {
         
         
         try {
-            assertEquals(6.5,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(6.5,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -263,7 +265,7 @@ public class TakeAwayBillTest {
         lista.add(new MenuItem(ItemType.Budini,"Sasso",3));
         lista.add(new MenuItem(ItemType.Budini,"Sasse",1));     
         try {
-            assertEquals(10,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+            assertEquals(10,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
         } catch (RestaurantBillException e) {
             fail("Failed testPieno");
             e.printStackTrace();
@@ -283,7 +285,7 @@ public class TakeAwayBillTest {
        lista.add(new MenuItem(ItemType.Gelati,"Stwwefa",5));
 
        try {
-           assertEquals(10,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+           assertEquals(10,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
        } catch (RestaurantBillException e) {
            fail("Failed testPieno");
            e.printStackTrace();
@@ -303,13 +305,203 @@ public class TakeAwayBillTest {
        lista.add(new MenuItem(ItemType.Gelati,"Stwwefa",6));
 
        try {
-           assertEquals(10.5,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.now())),0);
+           assertEquals(10.5,test.getOrderPrice(lista, new User("forse","si","no",LocalDate.of(1999,10,10)),LocalTime.of(20,0,0)),0);
        } catch (RestaurantBillException e) {
            fail("Failed testPieno");
            e.printStackTrace();
        }
        
    }
+   
+   
+   
+   @Test 
+   public void testFirstRandomUnder() {
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Stefa",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasso",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasse",1));
+       lista.add(new MenuItem(ItemType.Gelati,"we",1));
+       lista.add(new MenuItem(ItemType.Budini,"Stwwefa",5));
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.now()),LocalTime.of(18,0,0));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }   
+       assertEquals(900,x,0);    
+   }
+   
+   
+   @Test 
+   public void testSecondRandomUnder() {
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Stefa",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasso",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasse",1));
+       lista.add(new MenuItem(ItemType.Gelati,"we",1));
+       lista.add(new MenuItem(ItemType.Budini,"Stwwefa",5));
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.now()),LocalTime.of(17,59,59));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }
+       
+       assertEquals(1000,x,0);    
+   }
+   
+   
+   @Test 
+   public void testTerRandomUnder() {
+
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Stefa",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasso",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasse",1));
+       lista.add(new MenuItem(ItemType.Gelati,"we",1));
+       lista.add(new MenuItem(ItemType.Budini,"Stwwefa",5));
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.now()),LocalTime.of(19,0,1));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }
+       
+       assertEquals(1000,x,0);    
+   }
+   
+   
+   @Test 
+   public void testQuarRandomUnder() {
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Stefa",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasso",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasse",1));
+       lista.add(new MenuItem(ItemType.Gelati,"we",1));
+       lista.add(new MenuItem(ItemType.Budini,"Stwwefa",5));
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.now()),LocalTime.of(19,0,0));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }   
+       assertEquals(900,x,0);    
+   }
+   
+   @Test
+   public void testRandomOver() {
+       
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Stefa",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasso",1));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasse",1));
+       lista.add(new MenuItem(ItemType.Gelati,"we",1));
+       lista.add(new MenuItem(ItemType.Budini,"Stwwefa",5));
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.of(1999,10,10)),LocalTime.of(18,3,0));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }   
+       assertEquals(1000,x,0);    
+       
+       
+   }
+   
+   
+   @Test
+   public void testSixPlusRandom() {
+       
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",3));
+       lista.add(new MenuItem(ItemType.Gelati,"Stefa",3));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasso",3));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasa",3));
+       lista.add(new MenuItem(ItemType.Gelati,"Mesa",4));
+       lista.add(new MenuItem(ItemType.Gelati,"Fesa",3));
+       
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.now()),LocalTime.of(18,3,0));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }
+       assertEquals(1575,x,0);  
+   }
+   
+   @Test
+   public void testCommissionePlusRandom() {
+       
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",2));
+       lista.add(new MenuItem(ItemType.Bevande,"Stefa",2));
+       lista.add(new MenuItem(ItemType.Budini,"Sasso",2));
+       
+       
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.now()),LocalTime.of(18,3,0));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }
+       
+       assertEquals(585,x,0);
+       
+   }
+   
+   @Test
+   public void testSconto10PlusRandom() {
+       List<MenuItem> lista = new ArrayList<MenuItem>();
+       lista.add(new MenuItem(ItemType.Gelati,"Ciccio",20));
+       lista.add(new MenuItem(ItemType.Gelati,"Stefa",38));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasso",5));
+       lista.add(new MenuItem(ItemType.Gelati,"Sasa",22));
+       lista.add(new MenuItem(ItemType.Gelati,"Mesa",4));
+       lista.add(new MenuItem(ItemType.Gelati,"Fesa",7));
+       lista.add(new MenuItem(ItemType.Budini,"Fest",1));
+       
+       double x = 0;
+       for (int i = 0;i<100;++i) {          
+           try {
+            x+=test.getOrderPrice(lista, new User("Forse","Si","No",LocalDate.now()),LocalTime.of(18,3,0));
+        } catch (RestaurantBillException e) {
+            e.printStackTrace();
+        }
+           
+       }
+       
+       assertEquals(7695,x,0);
+       
+   }
+   
+   
     
     
     

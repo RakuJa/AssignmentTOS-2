@@ -4,7 +4,10 @@
 
 package it.unipd.tos.business;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Random;
 
 import it.unipd.tos.business.exception.RestaurantBillException;
 import it.unipd.tos.model.ItemType;
@@ -12,8 +15,13 @@ import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
 
 public class TakeAwayBillImpl implements TakeAwayBill{
+    
+    static int lotteryCounter = 10; 
+    
+    static Random rnd = new Random(500);
 
-    public double getOrderPrice(List<MenuItem> itemsOrdered, User user) 
+    public double getOrderPrice(List<MenuItem> itemsOrdered, User user,
+            LocalTime time) 
             throws RestaurantBillException {
         checkException(itemsOrdered);
         // TODO Auto-generated method stub
@@ -40,7 +48,34 @@ public class TakeAwayBillImpl implements TakeAwayBill{
             sum +=min/2;
             
         }
+        if (user.isUnderage()) {
+            if (lottery(time)) {
+                return 0;
+            }
+        }
         return calcoloTotale(itemsOrdered,sum);
+    }
+    
+    /**
+     * Prevedere  la  possibilità  di  regalare, 
+     *  in  modo  casuale,  
+     * 10  ordini  effettuati  dalle  18:00  alle  
+     * 19:00 da utenti minorenni differenti.
+     */
+    
+    private boolean lottery(LocalTime time) {
+        if (time.isAfter(LocalTime.of(17,59,59)) && 
+                time.isBefore(LocalTime.of(19,0,1) )) {
+            if (lotteryCounter>0) { 
+                int x = rnd.nextInt() & Integer.MAX_VALUE;
+                if (x%100<50) {
+                    --lotteryCounter;
+                    return true;
+                }
+            }
+        }
+        return false;
+        
     }
     
     
@@ -62,6 +97,8 @@ public class TakeAwayBillImpl implements TakeAwayBill{
                 sum+=0.5;
             }
         }
+        
+        
         return sum;
     }
     

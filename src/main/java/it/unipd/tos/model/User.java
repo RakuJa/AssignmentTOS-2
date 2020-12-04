@@ -5,6 +5,7 @@
 package it.unipd.tos.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class User {
     
@@ -34,6 +35,10 @@ public class User {
 
     public LocalDate getNascita() {
         return nascita;
+    }
+    
+    public boolean isUnderage() {
+        return 18>Period.between(nascita,LocalDate.now()).getYears();
     }
     
 }
